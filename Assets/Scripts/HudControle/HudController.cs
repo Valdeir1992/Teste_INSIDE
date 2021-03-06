@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class HudController : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class HudController : MonoBehaviour
     private Image _valorPotencia;
 
     [SerializeField] private RectTransform _marcadorDePotencia;
+
+    [SerializeField] private TMP_Text _marcadorDeTempo;
   
     #endregion
 
@@ -48,6 +51,11 @@ public class HudController : MonoBehaviour
     public void ExibirPotencia(float potencia)
     {
         _valorPotencia.fillAmount = potencia;
+    }
+
+    public void MarcarTempo(float tempo)
+    {
+        _marcadorDeTempo.text = $"{tempo:00.00}";
     }
     #endregion
 }
