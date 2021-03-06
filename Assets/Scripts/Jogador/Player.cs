@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
     #region MÉTODOS PRÓPRIOS
     public void Arremessar()
     {
-        _bola.Arremessar(_potencia * 15, new Vector3(0.3f, 1, 0));
+        _bola.Arremessar(_potencia * _potencia * 20, new Vector3(0.3f, 1, 0));
 
         _arremesso = true;
     }
