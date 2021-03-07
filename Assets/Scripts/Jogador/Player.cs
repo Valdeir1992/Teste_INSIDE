@@ -4,14 +4,12 @@ Programador: Valdeir Antonio do Nascimento
 Data: 05/03/2021
 Projeto: Teste INSIDE
 *****************************************************************************/
-
-
-using System.Collections;
-using System.Collections.Generic;
+ 
 using UnityEngine;
 
 public delegate void MarcarPotencia(float potencia);
 public delegate void MarcarTempo(float tempo);
+public delegate void MarcarAngulo(float angulo);
 public class Player : MonoBehaviour
 {
     #region VARIAVEIS PRIVADAS
@@ -20,7 +18,11 @@ public class Player : MonoBehaviour
 
     private float _potencia;
 
+    public float _angulo = 30;
+
     private float _time;
+
+    private Transform _tabela;
 
     [SerializeField] private Bola _bola;
     #endregion
@@ -29,12 +31,23 @@ public class Player : MonoBehaviour
 
     private event MarcarTempo marcarTempo;
 
+    private event MarcarAngulo marcarAngulo;
+
     #region MÉTODOS UNITY
     private void Awake()
     {
         marcarPotencia += FindObjectOfType<HudController>().ExibirPotencia;
 
         marcarTempo += FindObjectOfType<HudController>().MarcarTempo;
+
+        marcarAngulo += FindObjectOfType<HudController>().MarcarAngulo;
+
+        _tabela = FindObjectOfType<Tabela>().transform;
+    }
+
+    private void Start()
+    {
+        marcarAngulo?.Invoke(_angulo); 
     }
 
     void Update()
@@ -48,16 +61,41 @@ public class Player : MonoBehaviour
 
         marcarTempo?.Invoke(_time);
 
-        marcarPotencia?.Invoke(_potencia);
+        marcarPotencia?.Invoke(_potencia); 
     } 
     #endregion
 
     #region MÉTODOS PRÓPRIOS
     public void Arremessar()
     {
-        _bola.Arremessar(_potencia * _potencia * 20, new Vector3(0.3f, 1, 0));
+        Vector3 vetor = new Vector3(Mathf.Cos(_angulo * Mathf.Deg2Rad), Mathf.Sin(_angulo * Mathf.Deg2Rad), 0);
+        
+        _bola.Arremessar(_potencia * 15, vetor);
 
         _arremesso = true;
+    }
+    public void AumentarAngulo()
+    {
+        if (_angulo >= 90) return;
+        _angulo++;
+        marcarAngulo?.Invoke(_angulo);
+    }
+    public void DiminuirAngulo()
+    {
+        if (_angulo <= 0) return; 
+        _angulo--; 
+        marcarAngulo?.Invoke(_angulo);
+    }
+
+    private void OlharParaTabela()
+    {
+        Vector2 tabela = new Vector2(_tabela.position.x,_tabela.position.z);
+
+        Vector2 direction = tabela - new Vector2(transform.position.x, transform.position.z);
+
+        direction = direction.normalized; 
+
+        transform.Rotate(Vector3.up, Vector2.Angle(new Vector2(transform.right.x, transform.right.z), direction));  
     }
     #endregion
 }

@@ -12,6 +12,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "AumentarAngulo",
+                    "type": "Button",
+                    "id": "44bda3cb-3cab-442c-aa6c-fcdfe63cc3d6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "DiminuirAngulo",
+                    "type": "Button",
+                    "id": "40e129cb-7594-4701-bbc3-9d8eee196e57",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -23,6 +39,28 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Arremessar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a51caf4a-20da-424c-a9e2-c813ee418c83",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "AumentarAngulo",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "53d36bf8-495d-429f-902a-e3e79298e2b8",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "DiminuirAngulo",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
