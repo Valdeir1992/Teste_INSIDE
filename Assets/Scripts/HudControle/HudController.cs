@@ -47,7 +47,7 @@ public class HudController : MonoBehaviour
 
     public void MarcarAngulo(float angulo)
     {
-        _marcadorDeAngulo.rotation = Quaternion.Euler(0, 0, angulo - CORECAO_ANGULO_HUD);
+        _marcadorDeAngulo.rotation = Quaternion.Euler(0, 0, angulo * 1.3f - CORECAO_ANGULO_HUD);
 
         _textoAngulo.text = $"{angulo}º";
     }

@@ -20,6 +20,13 @@ public abstract class Bola : MonoBehaviour
     [SerializeField] protected BolaData _data;
     #endregion
 
+    public Rigidbody RigidBody
+    {
+        get
+        {
+            return _rigidBody;
+        }
+    }
     #region MÉTODOS UNITY
     void Awake()
     {
@@ -48,13 +55,6 @@ public abstract class Bola : MonoBehaviour
         _rigidBody.mass = _data.Peso; 
 
         _mesh.material = _data.MaterialBola;
-    }
-
-    public void Arremessar(float forca, Vector3 direction)
-    {
-        _rigidBody.isKinematic = false;
-
-        _rigidBody.AddForce(direction * forca, ForceMode.Impulse);
-    }
+    } 
     #endregion
 }

@@ -47,7 +47,9 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        marcarAngulo?.Invoke(_angulo); 
+        marcarAngulo?.Invoke(_angulo);
+
+        OlharParaTabela();
     }
 
     void Update()
@@ -69,8 +71,10 @@ public class Player : MonoBehaviour
     public void Arremessar()
     {
         Vector3 vetor = new Vector3(Mathf.Cos(_angulo * Mathf.Deg2Rad), Mathf.Sin(_angulo * Mathf.Deg2Rad), 0);
-        
-        _bola.Arremessar(_potencia * 15, vetor);
+
+        _bola.RigidBody.isKinematic = false;
+
+        _bola.RigidBody.AddForce(transform.InverseTransformDirection(vetor).normalized * _potencia * 12, ForceMode.Impulse);
 
         _arremesso = true;
     }
@@ -82,20 +86,19 @@ public class Player : MonoBehaviour
     }
     public void DiminuirAngulo()
     {
-        if (_angulo <= 0) return; 
+        if (_angulo <= 30) return; 
         _angulo--; 
         marcarAngulo?.Invoke(_angulo);
     }
 
     private void OlharParaTabela()
     {
-        Vector2 tabela = new Vector2(_tabela.position.x,_tabela.position.z);
 
-        Vector2 direction = tabela - new Vector2(transform.position.x, transform.position.z);
+        Vector3 direction = (_tabela.position - transform.position).normalized;
 
-        direction = direction.normalized; 
+        Quaternion lookToward = Quaternion.LookRotation(direction,transform.up);
 
-        transform.Rotate(Vector3.up, Vector2.Angle(new Vector2(transform.right.x, transform.right.z), direction));  
+        transform.rotation = Quaternion.Euler(0, lookToward.eulerAngles.y,0);
     }
     #endregion
 }
