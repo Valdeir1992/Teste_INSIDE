@@ -9,8 +9,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public delegate void MarcarPotencia(float potencia);
-public delegate void MarcarTempo(float tempo);
+public delegate void MarcarPotencia(float potencia); 
 public delegate void MarcarAngulo(float angulo);
 public class Player : MonoBehaviour
 {
@@ -118,7 +117,7 @@ public class Player : MonoBehaviour
 
         marcarAngulo?.Invoke(_angulo);
     } 
-    private void OlharParaTabela()
+    public void OlharParaTabela()
     {
 
         Vector3 direction = (_tabela.position - transform.position);
@@ -144,7 +143,7 @@ public class Player : MonoBehaviour
         while (true)
         {
              
-            _potencia = Mathf.PingPong(Time.time, 1);
+            _potencia = Mathf.PingPong(Time.time/2, 1);
 
             _time += Time.deltaTime; 
 

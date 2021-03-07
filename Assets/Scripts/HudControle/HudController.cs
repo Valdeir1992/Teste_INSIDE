@@ -24,6 +24,8 @@ public class HudController : MonoBehaviour
     [SerializeField] private TMP_Text _marcadorDeTempo;
 
     [SerializeField] private TMP_Text _textoAngulo;
+
+    [SerializeField] private TMP_Text _textoPontuacao;
   
     #endregion
 
@@ -50,6 +52,11 @@ public class HudController : MonoBehaviour
         _marcadorDeAngulo.rotation = Quaternion.Euler(0, 0, angulo * 1.3f - CORECAO_ANGULO_HUD);
 
         _textoAngulo.text = $"{angulo}º";
+    }
+
+    public void MarcarPontuacao(int pontuacao)
+    {
+        _textoPontuacao.text = $"{pontuacao:00}";
     }
     #endregion
 }

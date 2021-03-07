@@ -10,21 +10,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public delegate void MarcarTempo(float tempo); 
 public class GameManager : MonoBehaviour
 {
     #region VARIAVEIS PRIVADAS
     private List<Bola> _bolasEmGame;
     private float _tempo;
+    [SerializeField] private Tabela _tabela;
     [SerializeField] private Player _jogador;
     [SerializeField] private GameObject _prefabBola;
     #endregion
 
-    private MarcarTempo marcarTempo;
+    private MarcarTempo marcarTempo; 
 
     #region MÉTODOS UNITY
     void Awake()
     {
-        marcarTempo += FindObjectOfType<HudController>().MarcarTempo;
+        marcarTempo += FindObjectOfType<HudController>().MarcarTempo; 
     }	
     void Start()
     {
@@ -33,21 +36,13 @@ public class GameManager : MonoBehaviour
         StartCoroutine(DarBola());
 
         _jogador.PegarBola(GetBola());
-    }
-    private void OnEnable()
-    {
-       
     } 
     void Update()
     {
         _tempo += Time.deltaTime;
 
         marcarTempo?.Invoke(_tempo);
-    }
-    private void OnDisable()
-    {
-        
-    }
+    } 
     #endregion
 
     #region MÉTODOS PRÓPRIOS
@@ -86,6 +81,11 @@ public class GameManager : MonoBehaviour
         bolaSelecionada.gameObject.SetActive(true);
 
         return bolaSelecionada;
+    }
+
+    private void MoverPersonagem()
+    {
+
     }
  
     #endregion
