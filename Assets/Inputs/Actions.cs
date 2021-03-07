@@ -41,6 +41,22 @@ public class @Actions : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""AumentarAnguloMaior"",
+                    ""type"": ""Button"",
+                    ""id"": ""4f127f91-f014-4007-9ff4-6c3fec943b08"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""DiminuirAnguloMaior"",
+                    ""type"": ""Button"",
+                    ""id"": ""130d815e-c81c-4210-bd96-94ccb23db5df"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -74,6 +90,28 @@ public class @Actions : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""DiminuirAngulo"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""da791495-cbfe-4df5-bba7-b8359c49dc2c"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""AumentarAnguloMaior"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b15d0caf-6ce5-41db-a8e7-aaad62c506e1"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""DiminuirAnguloMaior"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -654,6 +692,8 @@ public class @Actions : IInputActionCollection, IDisposable
         m_Player_Arremessar = m_Player.FindAction("Arremessar", throwIfNotFound: true);
         m_Player_AumentarAngulo = m_Player.FindAction("AumentarAngulo", throwIfNotFound: true);
         m_Player_DiminuirAngulo = m_Player.FindAction("DiminuirAngulo", throwIfNotFound: true);
+        m_Player_AumentarAnguloMaior = m_Player.FindAction("AumentarAnguloMaior", throwIfNotFound: true);
+        m_Player_DiminuirAnguloMaior = m_Player.FindAction("DiminuirAnguloMaior", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -718,6 +758,8 @@ public class @Actions : IInputActionCollection, IDisposable
     private readonly InputAction m_Player_Arremessar;
     private readonly InputAction m_Player_AumentarAngulo;
     private readonly InputAction m_Player_DiminuirAngulo;
+    private readonly InputAction m_Player_AumentarAnguloMaior;
+    private readonly InputAction m_Player_DiminuirAnguloMaior;
     public struct PlayerActions
     {
         private @Actions m_Wrapper;
@@ -725,6 +767,8 @@ public class @Actions : IInputActionCollection, IDisposable
         public InputAction @Arremessar => m_Wrapper.m_Player_Arremessar;
         public InputAction @AumentarAngulo => m_Wrapper.m_Player_AumentarAngulo;
         public InputAction @DiminuirAngulo => m_Wrapper.m_Player_DiminuirAngulo;
+        public InputAction @AumentarAnguloMaior => m_Wrapper.m_Player_AumentarAnguloMaior;
+        public InputAction @DiminuirAnguloMaior => m_Wrapper.m_Player_DiminuirAnguloMaior;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -743,6 +787,12 @@ public class @Actions : IInputActionCollection, IDisposable
                 @DiminuirAngulo.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDiminuirAngulo;
                 @DiminuirAngulo.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDiminuirAngulo;
                 @DiminuirAngulo.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDiminuirAngulo;
+                @AumentarAnguloMaior.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAumentarAnguloMaior;
+                @AumentarAnguloMaior.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAumentarAnguloMaior;
+                @AumentarAnguloMaior.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnAumentarAnguloMaior;
+                @DiminuirAnguloMaior.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDiminuirAnguloMaior;
+                @DiminuirAnguloMaior.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDiminuirAnguloMaior;
+                @DiminuirAnguloMaior.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDiminuirAnguloMaior;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -756,6 +806,12 @@ public class @Actions : IInputActionCollection, IDisposable
                 @DiminuirAngulo.started += instance.OnDiminuirAngulo;
                 @DiminuirAngulo.performed += instance.OnDiminuirAngulo;
                 @DiminuirAngulo.canceled += instance.OnDiminuirAngulo;
+                @AumentarAnguloMaior.started += instance.OnAumentarAnguloMaior;
+                @AumentarAnguloMaior.performed += instance.OnAumentarAnguloMaior;
+                @AumentarAnguloMaior.canceled += instance.OnAumentarAnguloMaior;
+                @DiminuirAnguloMaior.started += instance.OnDiminuirAnguloMaior;
+                @DiminuirAnguloMaior.performed += instance.OnDiminuirAnguloMaior;
+                @DiminuirAnguloMaior.canceled += instance.OnDiminuirAnguloMaior;
             }
         }
     }
@@ -915,6 +971,8 @@ public class @Actions : IInputActionCollection, IDisposable
         void OnArremessar(InputAction.CallbackContext context);
         void OnAumentarAngulo(InputAction.CallbackContext context);
         void OnDiminuirAngulo(InputAction.CallbackContext context);
+        void OnAumentarAnguloMaior(InputAction.CallbackContext context);
+        void OnDiminuirAnguloMaior(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

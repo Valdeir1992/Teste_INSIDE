@@ -5,7 +5,8 @@ Data: 05/03/2021
 Projeto: Teste INSIDE
 *****************************************************************************/
 
- 
+
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider),typeof(AudioSource))]
@@ -24,6 +25,7 @@ public abstract class Bola : MonoBehaviour
     {
         get
         {
+            StartCoroutine(DesativarBola());
             return _rigidBody;
         }
     }
@@ -35,8 +37,8 @@ public abstract class Bola : MonoBehaviour
         _audio = GetComponent<AudioSource>();
 
         _rigidBody.isKinematic = true;
-    }	
-    public virtual void Start()
+    }
+    public void OnEnable()
     {
         SetupBola();
     }
@@ -55,6 +57,15 @@ public abstract class Bola : MonoBehaviour
         _rigidBody.mass = _data.Peso; 
 
         _mesh.material = _data.MaterialBola;
-    } 
+
+        _rigidBody.isKinematic = true;
+    }  
     #endregion
+
+    private IEnumerator DesativarBola()
+    {
+        yield return new WaitForSeconds(5);
+
+        gameObject.SetActive(false);
+    }
 }

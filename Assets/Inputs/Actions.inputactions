@@ -28,6 +28,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "AumentarAnguloMaior",
+                    "type": "Button",
+                    "id": "4f127f91-f014-4007-9ff4-6c3fec943b08",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "DiminuirAnguloMaior",
+                    "type": "Button",
+                    "id": "130d815e-c81c-4210-bd96-94ccb23db5df",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -61,6 +77,28 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "DiminuirAngulo",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "da791495-cbfe-4df5-bba7-b8359c49dc2c",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "AumentarAnguloMaior",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b15d0caf-6ce5-41db-a8e7-aaad62c506e1",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "DiminuirAnguloMaior",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

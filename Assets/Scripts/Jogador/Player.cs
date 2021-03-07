@@ -14,24 +14,24 @@ public delegate void MarcarTempo(float tempo);
 public delegate void MarcarAngulo(float angulo);
 public class Player : MonoBehaviour
 {
-    #region VARIAVEIS PRIVADAS
-
-    private bool _podeArremessar = true;
+    #region VARIAVEIS PRIVADAS 
 
     private float _potencia;
 
-    public float _angulo = 30;
-
     private float _time;
+
+    public float _angulo = 60; 
 
     private Transform _tabela;
 
     private Bola _bola;
 
-    [SerializeField] private Bola _prefabBola;
+    private bool _semBola;
 
     [SerializeField] private Transform _mao;
     #endregion
+
+    public bool SemBola { get => _semBola; }
 
     private event MarcarPotencia marcarPotencia;
 
@@ -57,9 +57,7 @@ public class Player : MonoBehaviour
 
         OlharParaTabela();
 
-        StartCoroutine(_pegarBola());
-
-        _bola = Instantiate(_prefabBola, _mao, false);
+        StartCoroutine(gerarPontencia()); 
     } 
     #endregion
 
@@ -76,7 +74,7 @@ public class Player : MonoBehaviour
 
         _bola = null;
 
-        _podeArremessar = false;
+        _semBola = true;
 
         _mao.GetChild(0).SetParent(null);
     }
@@ -90,6 +88,16 @@ public class Player : MonoBehaviour
 
         marcarAngulo?.Invoke(_angulo);
     }
+    public void AumentarAnguloMaior(InputAction.CallbackContext ctx)
+    {
+        if (!ctx.performed) return;
+
+        if (_angulo >= 80) return;
+
+        _angulo+=10;
+
+        marcarAngulo?.Invoke(_angulo);
+    }
     public void DiminuirAngulo(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
@@ -100,7 +108,16 @@ public class Player : MonoBehaviour
 
         marcarAngulo?.Invoke(_angulo);
     }
+    public void DiminuirAnguloMaior(InputAction.CallbackContext ctx)
+    {
+        if (!ctx.performed) return;
 
+        if (_angulo <= 40) return;
+
+        _angulo -= 10;
+
+        marcarAngulo?.Invoke(_angulo);
+    } 
     private void OlharParaTabela()
     {
 
@@ -109,33 +126,27 @@ public class Player : MonoBehaviour
         Quaternion lookToward = Quaternion.LookRotation(direction,transform.up);
 
         transform.rotation = Quaternion.Euler(0, lookToward.eulerAngles.y,0);
+    } 
+    public void PegarBola(Bola bola)
+    {
+        _bola = bola;
+
+        _bola.transform.SetParent(_mao,false);
+
+        _bola.transform.localPosition = Vector3.zero;
+
+        _semBola = false;
     }
     #endregion
 
-    private IEnumerator _pegarBola()
-    {
-        float timeElapsed = 0;
-
+    private IEnumerator gerarPontencia()
+    {  
         while (true)
         {
-            while (!_podeArremessar)
-            {
-                timeElapsed += Time.deltaTime;
-                if (timeElapsed > 1)
-                {
-                    _podeArremessar = true;
-
-                    _bola = Instantiate(_prefabBola, _mao, false); 
-
-                    timeElapsed = 0;
-                }
-                yield return null; 
-            }
+             
             _potencia = Mathf.PingPong(Time.time, 1);
 
-            _time += Time.deltaTime;
-
-            marcarTempo?.Invoke(_time);
+            _time += Time.deltaTime; 
 
             marcarPotencia?.Invoke(_potencia);
 
