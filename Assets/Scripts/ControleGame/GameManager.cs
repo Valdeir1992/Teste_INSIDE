@@ -15,10 +15,15 @@ public delegate void MarcarTempo(float tempo);
 public class GameManager : MonoBehaviour
 {
     #region VARIAVEIS PRIVADAS
+
     private List<Bola> _bolasEmGame;
-    private float _tempo;
+
+    private float _tempo; 
+
     [SerializeField] private Tabela _tabela;
+
     [SerializeField] private Player _jogador;
+
     [SerializeField] private GameObject _prefabBola;
     #endregion
 
@@ -41,7 +46,7 @@ public class GameManager : MonoBehaviour
     {
         _tempo += Time.deltaTime;
 
-        marcarTempo?.Invoke(_tempo);
+        marcarTempo?.Invoke(_tempo);  
     } 
     #endregion
 
@@ -69,6 +74,7 @@ public class GameManager : MonoBehaviour
             if (!bola.gameObject.activeSelf)
             {
                 bolaSelecionada = bola;
+
                 break;
             }
         }
@@ -83,9 +89,14 @@ public class GameManager : MonoBehaviour
         return bolaSelecionada;
     }
 
-    private void MoverPersonagem()
+    public void MoverPersonagem(Vector3 center, float raio)
     {
+        float angulo = Random.Range(90, 270);
 
+        _jogador.transform.position = new Vector3(center.x + raio * Mathf.Cos(angulo * Mathf.Deg2Rad),
+                                         _jogador.transform.position.y,
+                                         center.z + raio * Mathf.Sin(angulo * Mathf.Deg2Rad));
+        _jogador.OlharParaTabela();
     }
  
     #endregion

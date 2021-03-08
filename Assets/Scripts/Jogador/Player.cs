@@ -11,6 +11,7 @@ using UnityEngine.InputSystem;
 
 public delegate void MarcarPotencia(float potencia); 
 public delegate void MarcarAngulo(float angulo);
+public delegate void ArremesoAnterior();
 public class Player : MonoBehaviour
 {
     #region VARIAVEIS PRIVADAS 
@@ -38,6 +39,8 @@ public class Player : MonoBehaviour
 
     private event MarcarAngulo marcarAngulo;
 
+    private event ArremesoAnterior anterior;
+
     #region MÉTODOS UNITY
     private void Awake()
     {
@@ -48,6 +51,8 @@ public class Player : MonoBehaviour
         marcarAngulo += FindObjectOfType<HudController>().MarcarAngulo;
 
         _tabela = FindObjectOfType<Tabela>().transform;
+
+        anterior += FindObjectOfType<HudController>().MarcarUltimaPotencia;
     }
 
     private void Start()
@@ -76,6 +81,8 @@ public class Player : MonoBehaviour
         _semBola = true;
 
         _mao.GetChild(0).SetParent(null);
+
+        anterior?.Invoke();
     }
     public void AumentarAngulo(InputAction.CallbackContext ctx)
     {

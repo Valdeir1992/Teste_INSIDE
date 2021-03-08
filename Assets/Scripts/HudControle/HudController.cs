@@ -15,7 +15,11 @@ public class HudController : MonoBehaviour
 
     private const int CORECAO_ANGULO_HUD = 30;
 
+    private float _lastPotencia;
+
     private Image _valorPotencia;
+
+    private Image _valorLastPotencia;
 
     [SerializeField] private RectTransform _marcadorDePotencia;
 
@@ -32,7 +36,8 @@ public class HudController : MonoBehaviour
     #region MÉTODOS UNITY
     void Awake()
     {
-        _valorPotencia = _marcadorDePotencia.GetChild(0).GetComponent<Image>();
+        _valorPotencia = _marcadorDePotencia.GetChild(1).GetComponent<Image>();
+        _valorLastPotencia = _marcadorDePotencia.GetChild(0).GetComponent<Image>();
     }	 
     #endregion
 
@@ -40,6 +45,11 @@ public class HudController : MonoBehaviour
     public void ExibirPotencia(float potencia)
     {
         _valorPotencia.fillAmount = potencia;
+        _lastPotencia = potencia;
+    }
+    public void MarcarUltimaPotencia()
+    {
+        _valorLastPotencia.fillAmount = _lastPotencia;
     }
 
     public void MarcarTempo(float tempo)

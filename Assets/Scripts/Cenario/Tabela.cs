@@ -12,6 +12,7 @@ using UnityEngine;
 
 
 public delegate void MarcarPontuacao(int pontuacao);
+public delegate void MoverPersonagem(Vector3 posicao, float raio);
 public class Tabela : MonoBehaviour
 {
     #region VARIAVEIS PRIVADAS
@@ -24,12 +25,19 @@ public class Tabela : MonoBehaviour
     public int Pontuacao { get => _pontuacao; }
 
     private event MarcarPontuacao marcarPontuacao;
+    private event MoverPersonagem movePersonagem;
     #region MÉTODOS UNITY
     void Awake()
     {
         _audio = GetComponent<AudioSource>();
 
         marcarPontuacao += FindObjectOfType<HudController>().MarcarPontuacao;
+
+        movePersonagem += FindObjectOfType<GameManager>().MoverPersonagem;
+    }
+    private void Start()
+    {
+        movePersonagem?.Invoke(transform.position, 8);
     }
     private void OnCollisionEnter()
     {
@@ -45,6 +53,9 @@ public class Tabela : MonoBehaviour
     public void Pontuar()
     {
         _pontuacao++;
-        marcarPontuacao?.Invoke(_pontuacao);
+
+        marcarPontuacao?.Invoke(_pontuacao); 
+
+        movePersonagem?.Invoke(transform.position, (int)Random.Range(5, 8));
     }
 }
