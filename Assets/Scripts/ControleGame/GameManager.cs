@@ -91,7 +91,7 @@ public class GameManager : MonoBehaviour
 
     public void MoverPersonagem(Vector3 center, float raio)
     {
-        float angulo = Random.Range(90, 270);
+        float angulo = Random.Range(130, 230);
 
         _jogador.transform.position = new Vector3(center.x + raio * Mathf.Cos(angulo * Mathf.Deg2Rad),
                                          _jogador.transform.position.y,

@@ -37,7 +37,7 @@ public class Tabela : MonoBehaviour
     }
     private void Start()
     {
-        movePersonagem?.Invoke(transform.position, 8);
+        movePersonagem?.Invoke(transform.position, 6.25f);
     }
     private void OnCollisionEnter()
     {
@@ -56,6 +56,6 @@ public class Tabela : MonoBehaviour
 
         marcarPontuacao?.Invoke(_pontuacao); 
 
-        movePersonagem?.Invoke(transform.position, (int)Random.Range(5, 8));
+        movePersonagem?.Invoke(transform.position, (int)Random.Range(4, 6.25f));
     }
 }

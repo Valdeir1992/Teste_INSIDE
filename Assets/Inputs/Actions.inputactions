@@ -60,6 +60,28 @@
                 },
                 {
                     "name": "",
+                    "id": "8affa132-f231-4d1e-8630-e1a370a59f3b",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Gamepad",
+                    "action": "Arremessar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b925af7f-6439-4d81-a529-1d8e4023a692",
+                    "path": "<HID::ShanWan     PC/PS3/Android Gamepad>/button3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Joystick",
+                    "action": "Arremessar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "a51caf4a-20da-424c-a9e2-c813ee418c83",
                     "path": "<Keyboard>/upArrow",
                     "interactions": "",
