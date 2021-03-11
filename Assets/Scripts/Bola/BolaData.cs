@@ -5,11 +5,11 @@ Data: 05/03/2021
 Projeto: Teste INSIDE
 *****************************************************************************/
 
-
-using System.Collections;
-using System.Collections.Generic;
+ 
 using UnityEngine;
-
+/// <summary>
+/// Script responsável por armazenar dados da bola.
+/// </summary>
 [CreateAssetMenu(menuName ="Prototipo/Data/Bola")]
 public class BolaData : ScriptableObject
 {

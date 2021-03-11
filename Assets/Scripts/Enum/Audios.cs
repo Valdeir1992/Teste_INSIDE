@@ -1,14 +1,14 @@
 ﻿/*******************************************************************************
 Copyright (c) 2021 INSIDE * All rights reserved. 
 Programador: Valdeir Antonio do Nascimento
-Data: 05/03/2021
+Data: 06/03/2021
 Projeto: Teste INSIDE
 *****************************************************************************/
 
 /// <summary>
-/// Script para criação da bola inicial.
+/// Enumerador responsável por selecionar música.
 /// </summary>
-public class BolaComun : Bola
+public enum Audios
 {
-    
+    GamePlay01
 }

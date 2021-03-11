@@ -27,7 +27,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject _prefabBola;
     #endregion
 
-    private MarcarTempo marcarTempo; 
+    #region EVENT
+
+    private MarcarTempo marcarTempo;
+    #endregion
 
     #region MÉTODOS UNITY
     void Awake()
@@ -52,6 +55,9 @@ public class GameManager : MonoBehaviour
 
     #region MÉTODOS PRÓPRIOS
 
+    /// <summary>
+    /// Método responsável por criar um object pooling das bolas de basket
+    /// </summary>
     private void GerarBolas()
     {
         _bolasEmGame = new List<Bola>(); 
@@ -65,6 +71,10 @@ public class GameManager : MonoBehaviour
             _bolasEmGame.Add(bola);
         }
     }
+    /// <summary>
+    /// Método responsável por resgatar uma das bolas do object pooling
+    /// </summary>
+    /// <returns>Retorna uma das bolas</returns>
     private Bola GetBola()
     {
         Bola bolaSelecionada = null;
@@ -89,6 +99,11 @@ public class GameManager : MonoBehaviour
         return bolaSelecionada;
     }
 
+    /// <summary>
+    /// Método responsável por posicionar o jogador em alguma região do cenário.
+    /// </summary>
+    /// <param name="center">Centro do cenário</param>
+    /// <param name="raio">Raio da circuferencia</param>
     public void MoverPersonagem(Vector3 center, float raio)
     {
         float angulo = Random.Range(130, 230);
@@ -98,9 +113,15 @@ public class GameManager : MonoBehaviour
                                          center.z + raio * Mathf.Sin(angulo * Mathf.Deg2Rad));
         _jogador.OlharParaTabela();
     }
- 
+
     #endregion
 
+    #region ROTINA
+
+    /// <summary>
+    /// Rotina responsável por dar uma bola para o jogador.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator DarBola()
     {
         float timeElapsed = 0;
@@ -119,4 +140,5 @@ public class GameManager : MonoBehaviour
             yield return null;
         }
     }
+    #endregion
 }

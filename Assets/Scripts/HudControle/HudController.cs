@@ -9,6 +9,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+/// <summary>
+/// Script responsável por controlar HUDs do game.
+/// </summary>
 public class HudController : MonoBehaviour
 {
     #region VARIAVEIS PRIVADAS
@@ -37,26 +40,42 @@ public class HudController : MonoBehaviour
     void Awake()
     {
         _valorPotencia = _marcadorDePotencia.GetChild(1).GetComponent<Image>();
+
         _valorLastPotencia = _marcadorDePotencia.GetChild(0).GetComponent<Image>();
     }	 
     #endregion
 
     #region MÉTODOS PRÓPRIOS
+    /// <summary>
+    /// Método responsável por exibir potencia para o jogador.
+    /// </summary>
+    /// <param name="potencia">Recebe uma float que representa a potencia da jogada</param>
     public void ExibirPotencia(float potencia)
     {
         _valorPotencia.fillAmount = potencia;
+
         _lastPotencia = potencia;
     }
+    /// <summary>
+    /// Método responsável por marcar a potencia da jogada anterior.
+    /// </summary>
     public void MarcarUltimaPotencia()
     {
         _valorLastPotencia.fillAmount = _lastPotencia;
     }
-
+    /// <summary>
+    /// Método responsável por marcar o tempo da partida.
+    /// </summary>
+    /// <param name="tempo">Recebe o tempo decorrido do game.</param>
     public void MarcarTempo(float tempo)
     {
         _marcadorDeTempo.text = $"{tempo:00.00}";
     }
 
+    /// <summary>
+    /// Método responsável por exibir o angulo selecionado pelo jogador.
+    /// </summary>
+    /// <param name="angulo">Recebe o angulo escolhido pelo jogador.</param>
     public void MarcarAngulo(float angulo)
     {
         _marcadorDeAngulo.rotation = Quaternion.Euler(0, 0, angulo * 1.3f - CORECAO_ANGULO_HUD);
@@ -64,6 +83,10 @@ public class HudController : MonoBehaviour
         _textoAngulo.text = $"{angulo}º";
     }
 
+    /// <summary>
+    /// Método responsavel por exibir pontuacao do jogador.
+    /// </summary>
+    /// <param name="pontuacao"></param>
     public void MarcarPontuacao(int pontuacao)
     {
         _textoPontuacao.text = $"{pontuacao:00}";

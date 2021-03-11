@@ -12,6 +12,10 @@ using UnityEngine.InputSystem;
 public delegate void MarcarPotencia(float potencia); 
 public delegate void MarcarAngulo(float angulo);
 public delegate void ArremesoAnterior();
+
+/// <summary>
+/// Script responsável por gerenciar as acoes do jogador.
+/// </summary>
 public class Player : MonoBehaviour
 {
     #region VARIAVEIS PRIVADAS 
@@ -31,7 +35,11 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform _mao;
     #endregion
 
+    #region PROPRIEDADES 
     public bool SemBola { get => _semBola; }
+    #endregion
+
+    #region EVENTS
 
     private event MarcarPotencia marcarPotencia;
 
@@ -40,6 +48,7 @@ public class Player : MonoBehaviour
     private event MarcarAngulo marcarAngulo;
 
     private event ArremesoAnterior anterior;
+    #endregion
 
     #region MÉTODOS UNITY
     private void Awake()
@@ -66,6 +75,12 @@ public class Player : MonoBehaviour
     #endregion
 
     #region MÉTODOS PRÓPRIOS
+
+    /// <summary>
+    /// Método utilizado para o lançamento da bola.
+    /// </summary>
+    /// <remarks>Esse método é executado pelo inputSystem da Unity</remarks>
+    /// <param name="ctx"></param>
     public void Arremessar(InputAction.CallbackContext ctx)
     {
         if (_bola == null || !ctx.performed) return;
@@ -84,6 +99,12 @@ public class Player : MonoBehaviour
 
         anterior?.Invoke();
     }
+
+    /// <summary>
+    /// Método responsavel por aumentar o angulo do arremesso.
+    /// <remarks>Esse método é executado pelo inputSystem da Unity</remarks> 
+    /// </summary>
+    /// <param name="ctx"></param>
     public void AumentarAngulo(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
@@ -94,6 +115,12 @@ public class Player : MonoBehaviour
 
         marcarAngulo?.Invoke(_angulo);
     }
+
+    /// <summary>
+    /// Método responsavel por aumentar muito o angulo do arremesso.
+    /// <remarks>Esse método é executado pelo inputSystem da Unity</remarks>  
+    /// </summary>
+    /// <param name="ctx"></param>
     public void AumentarAnguloMaior(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
@@ -104,6 +131,12 @@ public class Player : MonoBehaviour
 
         marcarAngulo?.Invoke(_angulo);
     }
+
+    /// <summary>
+    /// Método responsavel por diminuir o angulo do arremesso.
+    /// <remarks>Esse método é executado pelo inputSystem da Unity</remarks> 
+    /// </summary>
+    /// <param name="ctx"></param>
     public void DiminuirAngulo(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
@@ -114,6 +147,12 @@ public class Player : MonoBehaviour
 
         marcarAngulo?.Invoke(_angulo);
     }
+
+    /// <summary>
+    /// Método responsavel por diminuir muito o angulo do arremesso.
+    /// <remarks>Esse método é executado pelo inputSystem da Unity</remarks> 
+    /// </summary>
+    /// <param name="ctx"></param>
     public void DiminuirAnguloMaior(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed) return;
@@ -124,6 +163,10 @@ public class Player : MonoBehaviour
 
         marcarAngulo?.Invoke(_angulo);
     } 
+
+    /// <summary>
+    /// Método responsavel por girar o jogador na direcao exata da tabela.
+    /// </summary>
     public void OlharParaTabela()
     {
 
@@ -133,6 +176,11 @@ public class Player : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(0, lookToward.eulerAngles.y,0);
     } 
+
+    /// <summary>
+    /// Método responsavel por setar bola para arremesso.
+    /// </summary>
+    /// <param name="bola"></param>
     public void PegarBola(Bola bola)
     {
         _bola = bola;
@@ -145,6 +193,11 @@ public class Player : MonoBehaviour
     }
     #endregion
 
+    #region ROTINA
+    /// <summary>
+    /// Rotina responsavel por variar a potencia do arremesso.
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator gerarPontencia()
     {  
         while (true)
@@ -159,4 +212,5 @@ public class Player : MonoBehaviour
             yield return null;
         }
     }
+    #endregion
 }

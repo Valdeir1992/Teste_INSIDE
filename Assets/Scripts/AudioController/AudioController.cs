@@ -5,11 +5,12 @@ Data: 06/03/2021
 Projeto: Teste INSIDE
 *****************************************************************************/
 
-
-using System.Collections;
-using System.Collections.Generic;
+ 
 using UnityEngine;
 
+/// <summary>
+/// Script responsável por gerenciar áudio do simulador. 
+/// </summary>
 public class AudioController : MonoBehaviour
 {
     #region VARIAVEIS PRIVADAS
@@ -27,19 +28,22 @@ public class AudioController : MonoBehaviour
     #endregion
 
     #region MÉTODOS PRÓPRIOS
+    /// <summary>
+    /// Método responsável por selecionar e executar áudio escolhido.
+    /// </summary>
+    /// <param name="audio">Recebe um enumerador para selecionar música</param>
     public void PlayAudio(Audios audio)
     {
         switch (audio)
         {
             case Audios.GamePlay01:
+
                 _audio.clip = _audios[0];
+
                 _audio.Play();
+
                 break;
         }
     }
     #endregion
-}
-public enum Audios
-{
-    GamePlay01
-}
+} 
